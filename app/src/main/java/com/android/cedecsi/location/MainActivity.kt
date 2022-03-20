@@ -1,6 +1,7 @@
 package com.android.cedecsi.location
 
 import android.Manifest
+import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -8,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import com.android.cedecsi.R
+import com.android.cedecsi.rest.RestExecute
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,12 +20,16 @@ class MainActivity : AppCompatActivity() {
     private var txtLatitud: TextView? = null
     private var txtLongitud: TextView? = null
     private var btnCoordenadas: Button? = null
+    private var btnUpload: Button? = null
     private lateinit var gpsProvider: GPSProvider
+    private var location: Location? = null
+    private lateinit var restExecute: RestExecute
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         gpsProvider = GPSProvider(this)
+        restExecute = RestExecute()
         setupViews()
         setupListeners()
     }
@@ -32,6 +38,7 @@ class MainActivity : AppCompatActivity() {
         txtLatitud = findViewById(R.id.txtLatitud)
         txtLongitud = findViewById(R.id.txtLongitud)
         btnCoordenadas = findViewById(R.id.btnCoordenadas)
+        btnUpload = findViewById(R.id.btnUpload)
     }
 
     private fun setupListeners() {
@@ -39,8 +46,18 @@ class MainActivity : AppCompatActivity() {
             gpsProvider.checkPermission()
         }
         gpsProvider.onLocation = {
+            location = it
             txtLatitud?.text = "Latitud: ${it.latitude}"
             txtLongitud?.text = "Latitud: ${it.longitude}"
+        }
+        btnUpload?.setOnClickListener {
+            if (location != null) restExecute.uploadCoordinates(location!!) {
+                if (it) {
+                    Toast.makeText(this, "Envío exitoso!", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this, "Envío falló!", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

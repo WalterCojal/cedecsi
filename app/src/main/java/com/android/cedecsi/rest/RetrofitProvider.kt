@@ -12,7 +12,9 @@ class RetrofitProvider {
 
     companion object {
 
-        private const val baseUrl = "http://sunass.conceptomercado.com/sunass_rest/"
+//        private const val baseUrl = "http://sunass.conceptomercado.com/sunass_rest/"
+        private const val baseUrl = "https://apiperu.dev/api/"
+        const val token = "ba33d99663d9ff3af4c6297099b4f386a232c8f87d93fcdc0e663f31dd0352aa"
 
         private fun provideGson(): Gson {
             val builder = GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)

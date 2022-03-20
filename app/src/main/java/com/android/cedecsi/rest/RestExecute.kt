@@ -10,6 +10,25 @@ class RestExecute {
 
     private val dataSource = RetrofitProvider.provideRetrofit().create(DataSource::class.java)
 
+    fun validate(doc: String, onResult: (ApiResult?) -> Unit) {
+        val call = dataSource.validateRuc(doc, RetrofitProvider.token)
+        call.enqueue(object: Callback<ApiResult> {
+            override fun onResponse(call: Call<ApiResult>, response: Response<ApiResult>) {
+                Log.e("Service", response.message())
+                if (response.isSuccessful && response.body() != null) {
+                    onResult(response.body()!!)
+                } else {
+                    onResult(null)
+                }
+            }
+
+            override fun onFailure(call: Call<ApiResult>, t: Throwable) {
+                Log.e("Service", "error", t)
+                onResult(null)
+            }
+        })
+    }
+
     fun uploadCoordinates(location: Location, onResult: (Boolean) -> Unit) {
         val body = HashMap<String, Any>()
         body["latitud"] = location.latitude

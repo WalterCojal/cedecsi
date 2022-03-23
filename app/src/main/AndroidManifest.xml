@@ -16,10 +16,10 @@
         android:theme="@style/Theme.Cedecsi"
         android:usesCleartextTraffic="true" >
         <activity
-            android:name=".navigation.NavigationActivity"
+            android:name="com.android.cedecsi.ui.navigation.NavigationActivity"
             android:exported="false" />
         <activity
-            android:name=".location.MainActivity"
+            android:name="com.android.cedecsi.ui.location.MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

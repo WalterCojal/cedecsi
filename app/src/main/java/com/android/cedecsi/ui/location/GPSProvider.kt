@@ -1,4 +1,4 @@
-package com.android.cedecsi.location
+package com.android.cedecsi.ui.location
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -51,13 +51,13 @@ class GPSProvider(
     var locationManager: LocationManager
         = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-    val gpsLocationListener: LocationListener = object: LocationListener {
+    private val gpsLocationListener: LocationListener = object: LocationListener {
         override fun onLocationChanged(location: Location) {
             locationByGps = location
         }
     }
 
-    val networkLocationListener: LocationListener = object: LocationListener {
+    private val networkLocationListener: LocationListener = object: LocationListener {
         override fun onLocationChanged(location: Location) {
             locationByNetwork = location
         }
@@ -143,7 +143,7 @@ class GPSProvider(
         override fun onLocationResult(p0: LocationResult) {
             super.onLocationResult(p0)
             if (p0 === null) {
-                Toast.makeText(context, "Información no disponible", Toast.LENGTH_SHORT).show()
+                getGPSLocation()
             } else {
                 onLocation(p0.lastLocation)
             }

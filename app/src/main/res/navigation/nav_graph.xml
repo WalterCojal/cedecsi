@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/firstFragment"
-        android:name="com.android.cedecsi.navigation.FirstFragment"
-        android:label="fragment_first"
+        android:name="com.android.cedecsi.ui.navigation.FirstFragment"
+        android:label="Tomar fotografía"
         tools:layout="@layout/fragment_first" >
         <action
             android:id="@+id/action_firstFragment_to_secondFragment2"
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/secondFragment"
-        android:name="com.android.cedecsi.navigation.SecondFragment"
-        android:label="fragment_second"
+        android:name="com.android.cedecsi.ui.navigation.SecondFragment"
+        android:label="Confirmar foto"
         tools:layout="@layout/fragment_second" />
 </navigation>

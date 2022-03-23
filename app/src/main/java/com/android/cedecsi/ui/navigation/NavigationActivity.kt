@@ -1,4 +1,4 @@
-package com.android.cedecsi.navigation
+package com.android.cedecsi.ui.navigation
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

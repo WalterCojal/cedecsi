@@ -22,25 +22,25 @@
             tools:src="@tools:sample/avatars" />
 
         <Button
+            android:id="@+id/btnTakePicture"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_margin="10dp"
+            android:textColor="@color/design_default_color_on_primary"
+            android:backgroundTint="@color/design_default_color_primary"
+            android:text="Tomar foto"
+            android:textSize="18sp" />
+
+        <Button
             android:id="@+id/btnConfirm"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:visibility="gone"
-            android:textColor="@color/design_default_color_primary"
-            android:background="@android:color/transparent"
-            android:text="Volver a tomar"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/btnTakePicture"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_margin="10dp"
             android:textColor="@color/design_default_color_on_secondary"
             android:backgroundTint="@color/design_default_color_secondary"
-            android:text="Tomar foto"
+            android:text="Continuar"
             android:textSize="18sp" />
     </LinearLayout>
 </FrameLayout>

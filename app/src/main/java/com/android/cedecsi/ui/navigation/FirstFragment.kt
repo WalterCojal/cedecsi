@@ -1,6 +1,7 @@
 package com.android.cedecsi.ui.navigation
 
 import android.Manifest
+import android.content.DialogInterface
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -11,13 +12,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.android.cedecsi.R
+import com.android.cedecsi.databinding.FragmentFirstBinding
 import com.android.cedecsi.util.getFormat
 import com.android.cedecsi.util.launcher.IntentLauncher
 import com.android.cedecsi.util.launcher.LauncherResult
+import pe.com.service.common.util.ImageUtils
 import java.io.File
 import java.util.*
 
@@ -37,6 +42,9 @@ class FirstFragment : Fragment() {
     private lateinit var cameraLauncher: IntentLauncher<Uri, Boolean>
     private var file: File? = null
 
+    // TODO. Uncomment binding initialization
+    private lateinit var binding: FragmentFirstBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         cameraLauncher = IntentLauncher(
@@ -49,9 +57,17 @@ class FirstFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_first, container, false)
+    ): View {
+        // TODO Uncomment instantiation of binding
+        binding = FragmentFirstBinding.inflate(inflater, container, false)
+        return binding.root
+//        return inflater.inflate(R.layout.fragment_first, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        setupViews()
+        setupListeners()
     }
 
     private fun setupViews() {
@@ -65,17 +81,29 @@ class FirstFragment : Fragment() {
                     file?.let { file ->
                         if (it.result) {
                             Log.i("CommerceActivity", file.absolutePath)
+                            ImageUtils.resizeImage(file.absolutePath, file)
                             var bitmap = BitmapFactory.decodeFile(file.absolutePath)
                             bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.width, bitmap.height, true)
-                            // TODO Fill image with photo
+                            // TODO Uncomment to fill image with photo
+                            binding.imageView.setImageBitmap(bitmap)
+                            binding.btnConfirm.isVisible = true
                         }
                     }
                 }
                 is LauncherResult.Error->{
-
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Error al cargar imagen")
+                        .setMessage("No se pudo cargar la imagen seleccionada, por favor intente de nuevo con otra imagen o vuelva más tarde")
+                        .setPositiveButton("Aceptar") { dialog, _ -> dialog?.dismiss() }
+                        .create().also { dialog ->
+                            dialog.show()
+                        }
                 }
             }
         }
+        // TODO Uncomment to setup listeners on button bindings
+        binding.btnTakePicture.setOnClickListener { takePicture() }
+        binding.btnConfirm.setOnClickListener { continuePhoto() }
     }
 
     private fun takePicture() {

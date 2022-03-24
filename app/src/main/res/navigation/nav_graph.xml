@@ -12,6 +12,10 @@
         tools:layout="@layout/fragment_first" >
         <action
             android:id="@+id/action_firstFragment_to_secondFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
             app:destination="@id/secondFragment" />
     </fragment>
     <fragment
@@ -20,3 +24,8 @@
         android:label="Confirmar foto"
         tools:layout="@layout/fragment_second" />
 </navigation>
+
+<!--    app:enterAnim="@anim/slide_in_right"-->
+<!--    app:exitAnim="@anim/slide_out_left"-->
+<!--    app:popEnterAnim="@anim/slide_in_left"-->
+<!--    app:popExitAnim="@anim/slide_out_right"-->

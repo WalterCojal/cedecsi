@@ -22,14 +22,45 @@
             tools:src="@tools:sample/avatars" />
 
         <Button
+            android:id="@+id/btnDrawLocation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/design_default_color_on_secondary"
+            android:backgroundTint="@color/design_default_color_secondary"
+            android:text="Agregar coordenadas"
+            android:textSize="18sp" />
+
+        <Button
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_margin="10dp"
-            android:textColor="@color/design_default_color_on_secondary"
-            android:backgroundTint="@color/design_default_color_secondary"
+            android:textColor="@color/design_default_color_on_primary"
+            android:backgroundTint="@color/design_default_color_primary"
             android:text="Guardar"
             android:textSize="18sp" />
 
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/progress"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:background="@color/cardview_dark_background"
+        android:alpha="0.5"
+        android:gravity="center"
+        >
+
+        <ProgressBar
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            />
+
+    </LinearLayout>
+
 </FrameLayout>

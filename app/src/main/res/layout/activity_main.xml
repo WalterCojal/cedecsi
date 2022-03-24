@@ -45,6 +45,8 @@
         android:id="@+id/btnCoordenadas"
         android:layout_width="match_parent"
         android:layout_height="60dp"
+        android:backgroundTint="@color/design_default_color_secondary"
+        android:textColor="@color/design_default_color_on_secondary"
         android:layout_margin="10dp"
         android:text="Obtener coordenadas" />
 
@@ -53,6 +55,8 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_margin="10dp"
-        android:text="Subir coordenadas" />
+        android:backgroundTint="@color/design_default_color_primary"
+        android:textColor="@color/design_default_color_on_primary"
+        android:text="Tomar fotografía" />
 
 </LinearLayout>

@@ -1,5 +1,6 @@
 package com.android.cedecsi.ui.location
 
+import android.content.Intent
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.android.cedecsi.R
 import com.android.cedecsi.rest.RestExecute
+import com.android.cedecsi.ui.navigation.NavigationActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -49,13 +51,15 @@ class MainActivity : AppCompatActivity() {
             txtLongitud?.text = "Latitud: ${it.longitude}"
         }
         btnUpload?.setOnClickListener {
-            if (location != null) restExecute.uploadCoordinates(location!!) {
-                if (it) {
-                    Toast.makeText(this, "Envío exitoso!", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this, "Envío falló!", Toast.LENGTH_SHORT).show()
-                }
-            }
+//            if (location != null) restExecute.uploadCoordinates(location!!) {
+//                if (it) {
+//                    Toast.makeText(this, "Envío exitoso!", Toast.LENGTH_SHORT).show()
+//                } else {
+//                    Toast.makeText(this, "Envío falló!", Toast.LENGTH_SHORT).show()
+//                }
+//            }
+            // TODO 3. Uncomment to create intent
+            startActivity(Intent(this, NavigationActivity::class.java))
         }
     }
 

@@ -9,6 +9,7 @@ import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Looper
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -51,17 +52,11 @@ class GPSProvider(
     var locationManager: LocationManager
         = context.getSystemService(Context.LOCATION_SERVICE) as LocationManager
 
-    private val gpsLocationListener: LocationListener = object: LocationListener {
-        override fun onLocationChanged(location: Location) {
-            locationByGps = location
-        }
-    }
+    private val gpsLocationListener: LocationListener =
+        LocationListener { location -> locationByGps = location }
 
-    private val networkLocationListener: LocationListener = object: LocationListener {
-        override fun onLocationChanged(location: Location) {
-            locationByNetwork = location
-        }
-    }
+    private val networkLocationListener: LocationListener =
+        LocationListener { location -> locationByNetwork = location }
 
     fun checkPermission() {
         if (

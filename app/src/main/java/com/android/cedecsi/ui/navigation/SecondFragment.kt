@@ -9,13 +9,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import androidx.lifecycle.lifecycleScope
+import com.android.cedecsi.MyApp
 import com.android.cedecsi.R
 import com.android.cedecsi.databinding.FragmentFirstBinding
 import com.android.cedecsi.databinding.FragmentSecondBinding
+import com.android.cedecsi.rest.IPhotoRepository
+import com.android.cedecsi.rest.PhotoRepository
+import com.android.cedecsi.room.CedecsiDatabase
+import com.android.cedecsi.room.entity.Photo
 import com.android.cedecsi.ui.location.GPSProvider
 import com.android.cedecsi.ui.location.GpsProviderType
 import com.android.cedecsi.util.FileUtil
 import com.android.cedecsi.util.hasGoogleServices
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.io.File
 
 /**
@@ -27,6 +36,11 @@ class SecondFragment : Fragment() {
 
     private var path = ""
     private var bitmap: Bitmap? = null
+    private var latitude = 0.0
+    private var longitude = 0.0
+
+    // TODO. Uncomment IPhotoRepository initialization
+    private lateinit var repository: IPhotoRepository
 
     // TODO. Uncomment binding initialization
     private lateinit var binding: FragmentSecondBinding
@@ -62,14 +76,21 @@ class SecondFragment : Fragment() {
     }
 
     private fun setupViews() {
+        // TODO Uncomment to instantiate PhotoRepository
+        val photoDao = (requireActivity().application as MyApp).photoDao
+        repository = PhotoRepository(photoDao)
     }
 
     private fun setupListeners() {
         (requireActivity() as NavigationActivity).gpsProvider.onLocation = {
+            latitude = it.latitude
+            longitude = it.longitude
             addTextToImage("${it.latitude}, ${it.longitude}")
+            binding.progress.isVisible = false
         }
         // TODO Uncomment to listen to btnDrawLocation actions
         binding.btnDrawLocation.setOnClickListener {
+            binding.progress.isVisible = true
             (requireActivity() as NavigationActivity).gpsProvider.checkPermission()
         }
         binding.btnSave.setOnClickListener {
@@ -83,8 +104,25 @@ class SecondFragment : Fragment() {
                     appName = getString(R.string.app_name)
                 ) { uri ->
                     binding.progress.isVisible = false
+                    insertPhoto()
                     Log.i("Save photo", uri?.path ?: "")
                 }
+            }
+        }
+    }
+
+    private fun insertPhoto() {
+        lifecycleScope.launch(Dispatchers.IO) {
+            val photo = Photo(
+                id = null,
+                name = path.split("/").last(),
+                path = path,
+                latitude = latitude,
+                longitude = longitude
+            )
+            val id = repository.save(photo)
+            withContext(Dispatchers.Main) {
+                Log.i("Insert photo", "Registrado! $id")
             }
         }
     }

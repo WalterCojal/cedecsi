@@ -51,15 +51,7 @@ class MainActivity : AppCompatActivity() {
             txtLongitud?.text = "Latitud: ${it.longitude}"
         }
         btnUpload?.setOnClickListener {
-//            if (location != null) restExecute.uploadCoordinates(location!!) {
-//                if (it) {
-//                    Toast.makeText(this, "Envío exitoso!", Toast.LENGTH_SHORT).show()
-//                } else {
-//                    Toast.makeText(this, "Envío falló!", Toast.LENGTH_SHORT).show()
-//                }
-//            }
-            // TODO Uncomment to create intent
-//            startActivity(Intent(this, NavigationActivity::class.java))
+            startActivity(Intent(this, NavigationActivity::class.java))
         }
     }
 

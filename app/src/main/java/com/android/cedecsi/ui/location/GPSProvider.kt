@@ -164,7 +164,7 @@ class GPSProvider(
         }
     }
 
-    fun onDestroy() {
+    fun onStop() {
         locationManager.removeUpdates(gpsLocationListener)
         locationManager.removeUpdates(networkLocationListener)
     }

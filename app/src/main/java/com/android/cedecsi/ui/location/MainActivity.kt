@@ -58,14 +58,14 @@ class MainActivity : AppCompatActivity() {
 //                    Toast.makeText(this, "Envío falló!", Toast.LENGTH_SHORT).show()
 //                }
 //            }
-            // TODO 3. Uncomment to create intent
-            startActivity(Intent(this, NavigationActivity::class.java))
+            // TODO Uncomment to create intent
+//            startActivity(Intent(this, NavigationActivity::class.java))
         }
     }
 
-    override fun onDestroy() {
-        gpsProvider.onDestroy()
-        super.onDestroy()
+    override fun onStop() {
+        super.onStop()
+        gpsProvider.onStop()
     }
 
 }

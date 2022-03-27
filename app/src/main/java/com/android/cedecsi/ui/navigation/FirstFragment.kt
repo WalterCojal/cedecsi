@@ -18,6 +18,7 @@ import androidx.core.content.FileProvider
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import com.android.cedecsi.R
+import com.android.cedecsi.databinding.FragmentFirstBinding
 import com.android.cedecsi.util.getFormat
 import com.android.cedecsi.util.launcher.IntentLauncher
 import com.android.cedecsi.util.launcher.LauncherResult
@@ -41,8 +42,7 @@ class FirstFragment : Fragment() {
     private lateinit var cameraLauncher: IntentLauncher<Uri, Boolean>
     private var file: File? = null
 
-    // TODO. Uncomment binding initialization
-//    private lateinit var binding: FragmentFirstBinding
+    private lateinit var binding: FragmentFirstBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,10 +57,9 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // TODO Uncomment instantiation of binding
-//        binding = FragmentFirstBinding.inflate(inflater, container, false)
-//        return binding.root
-        return inflater.inflate(R.layout.fragment_first, container, false)
+        binding = FragmentFirstBinding.inflate(inflater, container, false)
+        return binding.root
+//        return inflater.inflate(R.layout.fragment_first, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -74,34 +73,33 @@ class FirstFragment : Fragment() {
     }
 
     private fun setupListeners() {
-        // TODO Uncomment to setup listeners on button bindings
-//        cameraLauncher.result = {
-//            when (it) {
-//                is LauncherResult.Success->{
-//                    file?.let { file ->
-//                        if (it.result) {
-//                            Log.i("CommerceActivity", file.absolutePath)
-//                            ImageUtils.resizeImage(file.absolutePath, file)
-//                            var bitmap = BitmapFactory.decodeFile(file.absolutePath)
-//                            bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.width, bitmap.height, true)
-//                            binding.imageView.setImageBitmap(bitmap)
-//                            binding.btnConfirm.isVisible = true
-//                        }
-//                    }
-//                }
-//                is LauncherResult.Error->{
-//                    AlertDialog.Builder(requireContext())
-//                        .setTitle("Error al cargar imagen")
-//                        .setMessage("No se pudo cargar la imagen seleccionada, por favor intente de nuevo con otra imagen o vuelva más tarde")
-//                        .setPositiveButton("Aceptar") { dialog, _ -> dialog?.dismiss() }
-//                        .create().also { dialog ->
-//                            dialog.show()
-//                        }
-//                }
-//            }
-//        }
-//        binding.btnTakePicture.setOnClickListener { takePicture() }
-//        binding.btnConfirm.setOnClickListener { continuePhoto() }
+        cameraLauncher.result = {
+            when (it) {
+                is LauncherResult.Success->{
+                    file?.let { file ->
+                        if (it.result) {
+                            Log.i("CommerceActivity", file.absolutePath)
+                            ImageUtils.resizeImage(file.absolutePath, file) // Se escala la imagen a un tamaño determinado
+                            var bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                            bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.width, bitmap.height, true)
+                            binding.imageView.setImageBitmap(bitmap)
+                            binding.btnConfirm.isVisible = true
+                        }
+                    }
+                }
+                is LauncherResult.Error->{
+                    AlertDialog.Builder(requireContext())
+                        .setTitle("Error al cargar imagen")
+                        .setMessage("No se pudo cargar la imagen seleccionada, por favor intente de nuevo con otra imagen o vuelva más tarde")
+                        .setPositiveButton("Aceptar") { dialog, _ -> dialog?.dismiss() }
+                        .create().also { dialog ->
+                            dialog.show()
+                        }
+                }
+            }
+        }
+        binding.btnTakePicture.setOnClickListener { takePicture() }
+        binding.btnConfirm.setOnClickListener { continuePhoto() }
     }
 
     private fun takePicture() {

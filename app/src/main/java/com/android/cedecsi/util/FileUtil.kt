@@ -102,7 +102,7 @@ class FileUtil {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                             response(
                                 FileProvider.getUriForFile(context,
-                                    providerId, //BuildConfig.APPLICATION_ID+".fileprovider"
+                                    providerId, //BuildConfig.APPLICATION_ID+".provider"
                                     file)
                             )
                         } else {

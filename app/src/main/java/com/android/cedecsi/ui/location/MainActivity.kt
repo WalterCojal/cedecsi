@@ -8,8 +8,10 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.android.cedecsi.R
+import com.android.cedecsi.databinding.ActivityMainBinding
 import com.android.cedecsi.rest.RestExecute
 import com.android.cedecsi.ui.navigation.NavigationActivity
+import com.android.cedecsi.ui.schedule.ScheduleActivity
 
 class MainActivity : AppCompatActivity() {
 
@@ -17,17 +19,15 @@ class MainActivity : AppCompatActivity() {
         const val LOG_TAG = "MainActivity"
     }
 
-    private var txtLatitud: TextView? = null
-    private var txtLongitud: TextView? = null
-    private var btnCoordenadas: Button? = null
-    private var btnUpload: Button? = null
+    private lateinit var binding: ActivityMainBinding
     private lateinit var gpsProvider: GPSProvider
     private var location: Location? = null
     private lateinit var restExecute: RestExecute
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         gpsProvider = GPSProvider(this)
         restExecute = RestExecute()
         setupViews()
@@ -35,23 +35,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupViews() {
-        txtLatitud = findViewById(R.id.txtLatitud)
-        txtLongitud = findViewById(R.id.txtLongitud)
-        btnCoordenadas = findViewById(R.id.btnCoordenadas)
-        btnUpload = findViewById(R.id.btnUpload)
+
     }
 
     private fun setupListeners() {
-        btnCoordenadas?.setOnClickListener {
+        binding.btnCoordenadas.setOnClickListener {
             gpsProvider.checkPermission()
         }
         gpsProvider.onLocation = {
             location = it
-            txtLatitud?.text = "Latitud: ${it.latitude}"
-            txtLongitud?.text = "Latitud: ${it.longitude}"
+            binding.txtLatitud.text = "Latitud: ${it.latitude}"
+            binding.txtLongitud.text = "Latitud: ${it.longitude}"
         }
-        btnUpload?.setOnClickListener {
+        binding.btnUpload.setOnClickListener {
             startActivity(Intent(this, NavigationActivity::class.java))
+        }
+        binding.btnScheduling.setOnClickListener {
+            startActivity(Intent(this, ScheduleActivity::class.java))
         }
     }
 

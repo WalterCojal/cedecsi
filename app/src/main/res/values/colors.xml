@@ -8,4 +8,6 @@
     <color name="secondary_variant">#FF03DAC5</color>
     <color name="background">#FFFFFFFF</color>
     <color name="on_background">#FF000000</color>
+    <color name="error">#F31B1B</color>
+    <color name="on_error">#FFFFFF</color>
 </resources>

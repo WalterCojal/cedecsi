@@ -8,8 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.android.cedecsi.MyApp
 import com.android.cedecsi.R
 import com.android.cedecsi.databinding.FragmentSecondBinding
@@ -100,6 +102,17 @@ class SecondFragment : Fragment() {
                     Log.i("Save photo", uri?.path ?: "")
                 }
             }
+        }
+
+        binding.btnShare.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_secondFragment_to_shareFragment,
+                Bundle().apply {
+                    putString(ShareFragment.path_key, path)
+                    putDouble(ShareFragment.latitude_key, latitude)
+                    putDouble(ShareFragment.longitude_key, longitude)
+                }
+            )
         }
     }
 

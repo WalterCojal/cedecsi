@@ -42,6 +42,17 @@
             android:text="Guardar"
             android:textSize="18sp" />
 
+        <Button
+            android:id="@+id/btnShare"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:textColor="@color/on_primary"
+            android:backgroundTint="@color/primary"
+            android:text="Compartir"
+            android:textSize="18sp" />
+
     </LinearLayout>
 
     <LinearLayout

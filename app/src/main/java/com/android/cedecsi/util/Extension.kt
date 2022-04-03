@@ -21,3 +21,5 @@ fun Activity.hasGoogleServices(): Boolean {
     }
     return status == ConnectionResult.SUCCESS
 }
+
+fun Long.getStringFormatDate(): String = getFormat("dd-MMMM-yyyy hh:mm a", Date(this))

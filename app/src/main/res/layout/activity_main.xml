@@ -59,4 +59,13 @@
         android:textColor="@color/on_primary"
         android:text="Tomar fotografía" />
 
+    <Button
+        android:id="@+id/btnScheduling"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/primary_variant"
+        android:textColor="@color/on_primary"
+        android:text="Scheduling" />
+
 </LinearLayout>

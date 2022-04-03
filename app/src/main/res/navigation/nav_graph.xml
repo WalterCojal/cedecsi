@@ -22,7 +22,20 @@
         android:id="@+id/secondFragment"
         android:name="com.android.cedecsi.ui.navigation.SecondFragment"
         android:label="Confirmar foto"
-        tools:layout="@layout/fragment_second" />
+        tools:layout="@layout/fragment_second" >
+        <action
+            android:id="@+id/action_secondFragment_to_shareFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:destination="@id/shareFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/shareFragment"
+        android:name="com.android.cedecsi.ui.navigation.ShareFragment"
+        android:label="Compartir documento"
+        tools:layout="@layout/fragment_share" />
 </navigation>
 
 <!--    app:enterAnim="@anim/slide_in_right"-->
